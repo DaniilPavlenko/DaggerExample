@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.RequestManager
 import com.example.daggerexample.R
-import com.example.daggerexample.util.Resource
+import com.example.daggerexample.util.AuthResource
 import com.example.daggerexample.viewmodel.ViewModelProviderFactory
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -42,21 +42,24 @@ class AuthActivity : DaggerAppCompatActivity() {
     }
 
     private fun subscribeObservers() {
-        viewModel.observeUser().observe(this, Observer { result ->
+        viewModel.observeAuthState().observe(this, Observer { result ->
             when (result) {
-                is Resource.Loading -> {
+                is AuthResource.Loading -> {
                     progressBar.visibility = View.VISIBLE
                     Log.d(TAG, "subscribeObservers: loading...")
                 }
-                is Resource.Success -> {
+                is AuthResource.Success -> {
                     progressBar.visibility = View.GONE
                     setupLogo()
                     Log.d(TAG, "subscribeObservers: success ${result.data!!.webSite}")
                 }
-                is Resource.Error -> {
+                is AuthResource.Error -> {
                     Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
                     progressBar.visibility = View.GONE
                     Log.d(TAG, "subscribeObservers: error")
+                }
+                is AuthResource.LogOut -> {
+                    progressBar.visibility = View.GONE
                 }
             }
         })
