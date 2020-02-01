@@ -1,7 +1,10 @@
 package com.example.daggerexample.ui.auth
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import com.example.daggerexample.model.User
 import com.example.daggerexample.network.auth.AuthApi
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -11,20 +14,27 @@ import javax.inject.Inject
  */
 
 class AuthViewModel @Inject constructor(
-    authApi: AuthApi
+    private val authApi: AuthApi
 ) : ViewModel() {
 
     companion object {
         private const val TAG = "AuthViewModel"
     }
 
-    init {
-        authApi.getUser(1).toObservable()
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                Log.d(TAG, "user: ${it.userName}")
-            }, {
-                Log.e(TAG, "error: ", it)
-            })
+    private val authUser = MediatorLiveData<User>()
+
+    fun authenticateWithId(userId: Long) {
+        val source = LiveDataReactiveStreams.fromPublisher(
+            authApi.getUser(userId)
+                .subscribeOn(Schedulers.io())
+        )
+        authUser.addSource(source) {
+            authUser.value = it
+            authUser.removeSource(source)
+        }
+    }
+
+    fun observeUser(): LiveData<User> {
+        return authUser
     }
 }

@@ -71,6 +71,10 @@ dependencies {
     def rxJavaAdapter = "2.5.0"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rxJavaAdapter"
 
+    // Reactive Streams (convert Observable to LiveData)
+    def reactiveStreams = "1.1.1"
+    implementation "android.arch.lifecycle:reactivestreams:$reactiveStreams"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
