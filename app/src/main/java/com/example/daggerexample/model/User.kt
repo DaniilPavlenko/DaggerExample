@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by Daniil Pavlenko on 01.02.20.
  */
-data class User(
+class User {
     @SerializedName("id")
-    val id: Long,
+    var id: Long = 0
     @SerializedName("username")
-    val userName: String,
+    var userName: String = ""
     @SerializedName("email")
-    val email: String,
+    var email: String = ""
     @SerializedName("website")
-    val webSite: String
-)
+    var webSite: String = ""
+}
