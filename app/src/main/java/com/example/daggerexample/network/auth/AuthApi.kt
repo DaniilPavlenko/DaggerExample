@@ -1,13 +1,14 @@
 package com.example.daggerexample.network.auth
 
-import okhttp3.ResponseBody
-import retrofit2.Call
+import com.example.daggerexample.model.User
+import io.reactivex.Flowable
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * Created by Daniil Pavlenko on 01.02.20.
  */
 interface AuthApi {
-    @GET
-    fun getFake(): Call<ResponseBody>
+    @GET("users/{id}")
+    fun getUser(@Path("id") id: Long): Flowable<User>
 }
