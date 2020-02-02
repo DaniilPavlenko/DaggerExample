@@ -33,7 +33,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
                     Log.d(TAG, "subscribeObservers: loading...")
                 }
                 is AuthResource.Success -> {
-                    Log.d(TAG, "subscribeObservers: success ${it.data!!.webSite}")
+                    Log.d(TAG, "subscribeObservers: success ${it.data!!.website}")
                 }
                 is AuthResource.Error -> {
                     Log.d(TAG, "subscribeObservers: error")

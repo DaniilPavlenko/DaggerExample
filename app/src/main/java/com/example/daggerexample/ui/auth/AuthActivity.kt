@@ -54,7 +54,7 @@ class AuthActivity : DaggerAppCompatActivity() {
                 is AuthResource.Success -> {
                     progressBar.visibility = View.GONE
                     onLoginSuccess()
-                    Log.d(TAG, "subscribeObservers: success ${result.data!!.webSite}")
+                    Log.d(TAG, "subscribeObservers: success ${result.data!!.website}")
                 }
                 is AuthResource.Error -> {
                     Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()

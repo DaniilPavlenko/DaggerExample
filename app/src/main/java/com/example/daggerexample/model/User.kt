@@ -13,5 +13,5 @@ class User {
     @SerializedName("email")
     var email: String = ""
     @SerializedName("website")
-    var webSite: String = ""
+    var website: String = ""
 }

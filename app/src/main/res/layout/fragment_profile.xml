@@ -1,8 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/space_large"
     tools:context=".ui.main.profile.ProfileFragment">
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/ivProfileUserImage"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/none"
+        app:layout_constraintEnd_toStartOf="@+id/tvProfileUserName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_user_logo" />
+
+    <TextView
+        android:id="@+id/tvProfileUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileUserImage"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="John Wick" />
+
+    <TextView
+        android:id="@+id/tvProfileUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:autoLink="email"
+        app:layout_constraintStart_toStartOf="@id/tvProfileUserName"
+        app:layout_constraintTop_toBottomOf="@id/tvProfileUserName"
+        tools:text="john.wick@dpav.ru" />
+
+    <TextView
+        android:id="@+id/tvProfileUserWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:autoLink="web"
+        app:layout_constraintStart_toStartOf="@id/tvProfileUserEmail"
+        app:layout_constraintTop_toBottomOf="@id/tvProfileUserEmail"
+        tools:text="https://dpav.ru" />
+</androidx.constraintlayout.widget.ConstraintLayout>
