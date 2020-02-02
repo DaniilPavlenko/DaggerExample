@@ -1,29 +1,32 @@
 package com.example.daggerexample.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.RequestManager
 import com.example.daggerexample.R
+import com.example.daggerexample.ui.main.MainActivity
 import com.example.daggerexample.util.AuthResource
 import com.example.daggerexample.viewmodel.ViewModelProviderFactory
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-private const val TAG = "AuthActivity"
-
 class AuthActivity : DaggerAppCompatActivity() {
+
+    companion object {
+        private const val TAG = "AuthActivity"
+    }
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
     @Inject
     lateinit var requestManager: RequestManager
-    private lateinit var viewModel: AuthViewModel
 
+    private lateinit var viewModel: AuthViewModel
     private lateinit var edUserId: EditText
     private lateinit var btnLogin: Button
     private lateinit var progressBar: ProgressBar
@@ -50,7 +53,7 @@ class AuthActivity : DaggerAppCompatActivity() {
                 }
                 is AuthResource.Success -> {
                     progressBar.visibility = View.GONE
-                    setupLogo()
+                    onLoginSuccess()
                     Log.d(TAG, "subscribeObservers: success ${result.data!!.webSite}")
                 }
                 is AuthResource.Error -> {
@@ -65,16 +68,16 @@ class AuthActivity : DaggerAppCompatActivity() {
         })
     }
 
+    private fun onLoginSuccess() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun attemptLogin() {
         if (edUserId.text.toString().isBlank()) {
             return
         }
         viewModel.authenticateWithId(edUserId.text.toString().toLong())
-    }
-
-    private fun setupLogo() {
-        requestManager
-            .load(ContextCompat.getDrawable(this, R.drawable.ic_user_logo))
-            .into(ivUserPhoto)
     }
 }
