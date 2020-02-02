@@ -4,21 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.daggerexample.R
+import com.example.daggerexample.viewmodel.ViewModelProviderFactory
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : DaggerFragment() {
 
     companion object {
         private const val TAG = "ProfileFragment"
     }
 
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
+    private lateinit var viewModel: ProfileViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Toast.makeText(context, TAG, Toast.LENGTH_SHORT).show()
         return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, providerFactory)
+            .get(ProfileViewModel::class.java)
     }
 }
