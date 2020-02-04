@@ -3,6 +3,7 @@ package com.example.daggerexample.di
 import com.example.daggerexample.di.auth.AuthModule
 import com.example.daggerexample.di.auth.AuthViewModelsModule
 import com.example.daggerexample.di.main.MainFragmentBuildersModule
+import com.example.daggerexample.di.main.MainModule
 import com.example.daggerexample.di.main.MainViewModelsModule
 import com.example.daggerexample.ui.auth.AuthActivity
 import com.example.daggerexample.ui.main.MainActivity
@@ -21,7 +22,8 @@ abstract class ActivityBuildersModule {
     @ContributesAndroidInjector(
         modules = [
             MainFragmentBuildersModule::class,
-            MainViewModelsModule::class
+            MainViewModelsModule::class,
+            MainModule::class
         ]
     )
     abstract fun contributeMainActivity(): MainActivity
