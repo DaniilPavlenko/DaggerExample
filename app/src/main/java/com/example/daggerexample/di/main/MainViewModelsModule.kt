@@ -2,6 +2,7 @@ package com.example.daggerexample.di.main
 
 import androidx.lifecycle.ViewModel
 import com.example.daggerexample.di.ViewModelKey
+import com.example.daggerexample.ui.main.posts.PostsViewModel
 import com.example.daggerexample.ui.main.profile.ProfileViewModel
 import dagger.Binds
 import dagger.Module
@@ -16,4 +17,9 @@ abstract class MainViewModelsModule {
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)
     abstract fun bindProfileViewModel(viewModel: ProfileViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PostsViewModel::class)
+    abstract fun bindPostsViewModel(viewModel: PostsViewModel): ViewModel
 }
